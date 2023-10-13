@@ -4,6 +4,8 @@ print("Bienvenido al sistema del campus virtual\n\nSeleccione una opción del me
 def mostrar_menu():
     print("1.Ingresar como alumno\n2.Ingresar como profesor\n3.Ver cursos\n4.Salir")
 
+
+
 while op !=4:
     mostrar_menu()
     op = int(input(""))
@@ -17,4 +19,4 @@ while op !=4:
         elif op==4:
             pass
     else:
-        pass
+        print("Valor ingresado inválido")
