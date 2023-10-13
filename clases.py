@@ -53,18 +53,24 @@ class Estudiante(Persona):
 
 
 
-class Curso(Profesor,Estudiante):
-    def __init__(self,nombre,apellido,email,contrasenia,titulo,anio_egreso,legajo,anio_inscripcion_carrera):
-        Persona.__init__(self,nombre,apellido,email,contrasenia)
-        Profesor.__init__(self,titulo,anio_egreso)
-        Estudiante.__init__(self,legajo,anio_inscripcion_carrera)
+class Curso:
+    def __init__(self, nombre, lista_estudiantes, profesor):
+        self.nombre = nombre
+        self.lista_estudiantes = lista_estudiantes
+        self.profesor = profesor
+
+    def __str__(self):
+        return f"Curso: {self.nombre}"
 
     def generar_contrasenia(self):
+        # Agrega aquí la lógica para generar una contraseña para el curso
         pass
-
 
 
 alumno1=Estudiante("Pedro","Rogriguez","Pedro@gmail.com","pedro123",321,2023)
 
 profesor1=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeniero",1990)
-print(profesor1)
+
+
+curso1=Curso("Programacion 1","Estudiantes",profesor1.nombre)
+print(curso1)
