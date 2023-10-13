@@ -45,3 +45,6 @@ class Curso(Profesor,Estudiante):
         Persona.__init__(self,nombre,apellido,email,contrasenia)
         Profesor.__init__(self,titulo,anio_egreso)
         Estudiante.__init__(self,legajo,anio_inscripcion_carrera)
+
+    def generar_contrasenia(self):
+        pass
