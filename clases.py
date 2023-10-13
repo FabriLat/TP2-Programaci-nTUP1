@@ -1,6 +1,6 @@
 from abc import ABC,abstractclassmethod
-class Persona(ABC):
 
+class Persona(ABC):
     @abstractclassmethod
     def __init__(self,nombre,apellido,email,contrasenia):
         self.nombre = nombre
@@ -39,7 +39,7 @@ class Estudiante(Persona):
         pass
 
 
-    
+
 class Curso(Profesor,Estudiante):
     def __init__(self,nombre,apellido,email,contrasenia,titulo,anio_egreso,legajo,anio_inscripcion_carrera):
         Persona.__init__(self,nombre,apellido,email,contrasenia)
