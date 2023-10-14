@@ -1,4 +1,5 @@
 from abc import ABC,abstractmethod
+import os
 
 class Persona(ABC):
     @abstractmethod
@@ -36,15 +37,15 @@ class Profesor(Persona):
             if lista_profesores[i].email == email:
                 if lista_profesores[i].contrasenia == password:
                     print("Logueado con exito.")
-                    break
+                    return True
                 else:
                     print("Email o contraseña invalido.")
-                    break
+                    return False
             else:
                 i+=1
                 if i == len(lista_profesores):
                     print("Su usuario no existe, debe darse de alta en el alumnado.")
-                    break
+                    return False
 
 class Estudiante(Persona):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
@@ -65,16 +66,18 @@ class Estudiante(Persona):
             while i < len(lista_estudiantes):
                 if lista_estudiantes[i].email == email:
                     if lista_estudiantes[i].contrasenia == password:
-                        print("Logueado con exito.")
-                        break
+                        os.system("cls")
+                        print("Logueado con exito.\n")
+                        return True
                     else:
                         print("Email o contraseña invalido.")
-                        break
+                        return False
                 else:
                     i+=1
                     if i == len(lista_estudiantes):
                         print("Su usuario no existe, debe darse de alta en el alumnado.")
-                        break
+                        return False
+                      
 # 
 class Curso:
     def __init__(self,nombre,profesor):

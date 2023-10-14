@@ -10,7 +10,9 @@ while op !=4:
     if op >= 1 and op <= 4:
         if op ==1:
             os.system("cls")
-            clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
+            ingreso = clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
+            if ingreso == True:
+                op = input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n")
 
         elif op==2:
             os.system("cls")
