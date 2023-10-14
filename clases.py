@@ -29,7 +29,11 @@ class Profesor(Persona):
         pass
 
     def validar_credenciales(self):
-        pass
+        password = input("Ingrese su contraseña: ")
+        if self.contrasenia == password:
+            print("Logueado con exito")
+        else:
+            print("Error, mail o contraseña inválido")
 
 class Estudiante(Persona):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
@@ -62,6 +66,7 @@ class Curso:
         pass
 
 lista_estudiantes=[]
+lista_profesores=[]
 alumno1=Estudiante("Pedro","Rogriguez","Pedro@gmail.com","pedro123",123,2023)
 alumno2=Estudiante("Leo","Messi","Leo@gmail.com","leo123",456,2022)
 alumno3=Estudiante("Enzo","Fernandez","Enzo@gmail.com","enzo123",789,2021)
@@ -69,6 +74,9 @@ lista_estudiantes.append(alumno1)
 lista_estudiantes.append(alumno2)
 lista_estudiantes.append(alumno3)
 profesor1=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeniero",1990)
-profesor2=("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
+profesor2=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
+lista_profesores.append(profesor1)
+lista_profesores.append(profesor2)
+
 curso1=Curso("Programacion 1",profesor1.nombre)
 
