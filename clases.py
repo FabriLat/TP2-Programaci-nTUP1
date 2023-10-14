@@ -29,11 +29,22 @@ class Profesor(Persona):
         pass
 
     def validar_credenciales(self):
+        email=input("Ingrese su mail: ")
         password = input("Ingrese su contraseña: ")
-        if self.contrasenia == password:
-            print("Logueado con exito")
-        else:
-            print("Error, mail o contraseña inválido")
+        i=0
+        while i < len(lista_profesores):
+            if lista_profesores[i].email == email:
+                if lista_profesores[i].contrasenia == password:
+                    print("Logueado con exito.")
+                    break
+                else:
+                    print("Email o contraseña invalido.")
+                    break
+            else:
+                i+=1
+                if i == len(lista_profesores):
+                    print("Su usuario no existe, debe darse de alta en el alumnado.")
+                    break
 
 class Estudiante(Persona):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
@@ -48,11 +59,22 @@ class Estudiante(Persona):
         pass
     
     def validar_credenciales(self):
-        password = input("Ingrese su contraseña: ")
-        if self.contrasenia == password:
-            print("Logueado con exito")
-        else:
-            print("Error, mail o contraseña inválido")
+            email=input("Ingrese su mail: ")
+            password = input("Ingrese su contraseña: ")
+            i=0
+            while i < len(lista_estudiantes):
+                if lista_estudiantes[i].email == email:
+                    if lista_estudiantes[i].contrasenia == password:
+                        print("Logueado con exito.")
+                        break
+                    else:
+                        print("Email o contraseña invalido.")
+                        break
+                else:
+                    i+=1
+                    if i == len(lista_estudiantes):
+                        print("Su usuario no existe, debe darse de alta en el alumnado.")
+                        break
 # 
 class Curso:
     def __init__(self,nombre,profesor):
@@ -77,6 +99,5 @@ profesor1=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeni
 profesor2=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
 lista_profesores.append(profesor1)
 lista_profesores.append(profesor2)
-
 curso1=Curso("Programacion 1",profesor1.nombre)
 
