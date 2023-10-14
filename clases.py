@@ -80,12 +80,12 @@ class Estudiante(Persona):
                       
 # 
 class Curso:
-    def __init__(self,nombre,profesor):
+    def __init__(self,nombre,contrasenia_matriculacion):
         self.nombre = nombre
-        self.profesor = profesor
+        self.contrasenia_matriculacion = contrasenia_matriculacion
 
     def __str__(self):
-        return f"Curso: {self.nombre} a cargo del profesor {self.profesor}"
+        return f"Curso: {self.nombre}"
 
     def generar_contrasenia(self):
         pass
