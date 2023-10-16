@@ -92,9 +92,11 @@ class Curso:
 
 lista_estudiantes=[]
 lista_profesores=[]
+lista_cursos=[]
 alumno1=Estudiante("Pedro","Rogriguez","Pedro@gmail.com","pedro123",123,2023)
 alumno2=Estudiante("Leo","Messi","Leo@gmail.com","leo123",456,2022)
 alumno3=Estudiante("Enzo","Fernandez","Enzo@gmail.com","enzo123",789,2021)
+
 lista_estudiantes.append(alumno1)
 lista_estudiantes.append(alumno2)
 lista_estudiantes.append(alumno3)
@@ -102,5 +104,22 @@ profesor1=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeni
 profesor2=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
 lista_profesores.append(profesor1)
 lista_profesores.append(profesor2)
-curso1=Curso("Programacion 1",profesor1.nombre)
+
+curso1=Curso("Arquitectura de software","")
+curso2=Curso("Ingles 1",profesor1.nombre)
+curso3=Curso("Ingles 2",profesor1.nombre)
+curso4=Curso("Estadistica","")
+curso4=Curso("Laboratorio 1","asdas")
+curso5=Curso("Laboratorio 2","asdas")
+curso6=Curso("Metodologia","")
+curso7=Curso("Programacion 1","asdas")
+curso8=Curso("Programacion 2","asdas")
+lista_cursos.append(curso1)
+lista_cursos.append(curso2)
+lista_cursos.append(curso3)
+lista_cursos.append(curso4)
+lista_cursos.append(curso5)
+lista_cursos.append(curso6)
+lista_cursos.append(curso7)
+lista_cursos.append(curso8)
 
