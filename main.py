@@ -1,8 +1,9 @@
 import clases as clase
 import os
 op = int()
-print("Bienvenido al sistema del campus virtual\n\nSeleccione una opción del menú:")
 def mostrar_menu():
+    os.system("cls")
+    print("Bienvenido al sistema del campus virtual\n\nSeleccione una opción del menú:")
     print("1.Ingresar como alumno\n2.Ingresar como profesor\n3.Ver cursos\n4.Salir")
 while op !=4:
     mostrar_menu()
