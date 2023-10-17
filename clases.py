@@ -31,6 +31,7 @@ class Profesor(Persona):
         pass
 
     def validar_credenciales(self):
+        os.system("cls")
         email=input("Ingrese su mail: ")
         password = input("Ingrese su contraseña: ")
         i=0
@@ -59,7 +60,8 @@ class Estudiante(Persona):
         return f"Estudiante: {self.nombre} {self.apellido}"
 
     def matricular_en_curso(self):
-        print("Seleccione el curso para matricularse: ")
+        os.system("cls")
+        print("Seleccione el curso para matricularse:\n")
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
         seleccionado = int(input(""))
@@ -93,10 +95,18 @@ class Estudiante(Persona):
              self.mis_cursos.append(seleccionado)
         else:
             print("Opción inválida.")
-        print(f"{self.nombre} está ahora inscripto en {self.mis_cursos}")
-        
+        print(f"{self.nombre} está ahora inscripto en {seleccionado}")
+        input("Pulse cualquier telca para volver al menú...")
 
-    
+    def ver_cursos(self):
+        os.system("cls")
+        print(f"{self.nombre} está inscripto en: ")
+        for curso in self.mis_cursos:
+            print(f"- {curso}")
+        input("Presione cualquier telca para continuar...")
+
+
+        
     def validar_credenciales(self):
             email=input("Ingrese su mail: ")
             password = input("Ingrese su contraseña: ")
@@ -115,7 +125,7 @@ class Estudiante(Persona):
                     if i == len(lista_estudiantes):
                         print("Su usuario no existe, debe darse de alta en el alumnado.")
                         return False
-                      
+                                 
 class Curso:
     def __init__(self,nombre,contrasenia_matriculacion):
         self.nombre = nombre

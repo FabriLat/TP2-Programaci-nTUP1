@@ -13,17 +13,19 @@ while op !=4:
             os.system("cls")
             ingreso = clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
             if ingreso:
-                op = int(input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n"))
-                if op == 1:
-                    clase.Estudiante.matricular_en_curso(ingreso)
-                elif op == 2:
-                    pass
-                elif op == 3:
-                    pass
-                else:
-                    print("Opción invalida.")
-
-
+                
+                op_menu_alumno = int()
+                while op_menu_alumno != 3:
+                    os.system("cls")
+                    op_menu_alumno = int(input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n"))
+                    if op_menu_alumno == 1:
+                        clase.Estudiante.matricular_en_curso(ingreso)
+                    elif op_menu_alumno == 2:
+                        clase.Estudiante.ver_cursos(ingreso)
+                    elif op_menu_alumno == 3:
+                        pass
+                    else:
+                        print("Opción invalida.")
 
         elif op==2:
             os.system("cls")
