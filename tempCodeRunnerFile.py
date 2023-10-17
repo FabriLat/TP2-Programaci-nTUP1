@@ -1,2 +1,1 @@
-print(alumno1)
-print(alumno2)
+pass

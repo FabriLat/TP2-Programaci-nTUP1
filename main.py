@@ -7,20 +7,24 @@ def mostrar_menu():
 while op !=4:
     mostrar_menu()
     op = int(input(""))
+
     if op >= 1 and op <= 4:
-        if op ==1:
+        if op == 1:
             os.system("cls")
             ingreso = clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
             if ingreso:
-                op = input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n")
+                op = int(input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n"))
                 if op == 1:
-                    pass
+                    clase.Estudiante.matricular_en_curso(ingreso)
                 elif op == 2:
                     pass
                 elif op == 3:
                     pass
                 else:
                     print("Opción invalida.")
+
+
+
         elif op==2:
             os.system("cls")
             clase.Profesor.validar_credenciales(clase.lista_profesores)

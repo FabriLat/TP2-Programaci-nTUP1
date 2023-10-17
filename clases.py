@@ -1,5 +1,6 @@
 from abc import ABC,abstractmethod
 import os
+import random
 
 class Persona(ABC):
     @abstractmethod
@@ -52,12 +53,49 @@ class Estudiante(Persona):
         super().__init__(nombre, apellido, email, contrasenia)
         self.legajo = legajo
         self.anio_inscripcion_carrera = anio_inscripcion_carrera
+        self.mis_cursos = []
         
     def __str__(self):
         return f"Estudiante: {self.nombre} {self.apellido}"
 
     def matricular_en_curso(self):
-        pass
+        print("Seleccione el curso para matricularse: ")
+        for curso in range(len(lista_cursos)):
+            print(f"{curso+1}. {lista_cursos[curso]}")
+        seleccionado = int(input(""))
+
+        while seleccionado < 0 or seleccionado > 8:
+            if seleccionado < 0 or seleccionado > 8:
+                seleccionado = int(input("Opcion invalida, vuelve a seleccionarla."))
+        if seleccionado == 1:
+            seleccionado = "Arquitectura de software"
+            self.mis_cursos.append(seleccionado)
+        elif seleccionado ==2:
+             seleccionado = "Ingles 1"
+             self.mis_cursos.append(seleccionado)
+        elif seleccionado ==3:
+             seleccionado = "Ingles 2"
+             self.mis_cursos.append(seleccionado)
+        elif seleccionado ==4:
+             seleccionado = "Laboratorio 1"
+             self.mis_cursos.append(seleccionado)
+        elif seleccionado ==5:
+             seleccionado = "Laboratorio 2"
+             self.mis_cursos.append(seleccionado)
+        elif seleccionado ==6:
+             seleccionado = "Metodologia de la investigacion"
+             self.mis_cursos.append(seleccionado)
+        elif seleccionado ==7:
+             seleccionado = "Programacion 1"
+             self.mis_cursos.append(seleccionado)
+        elif seleccionado ==8:
+             seleccionado = "Programacion 2" 
+             self.mis_cursos.append(seleccionado)
+        else:
+            print("Opción inválida.")
+        print(f"{self.nombre} está ahora inscripto en {self.mis_cursos}")
+        
+
     
     def validar_credenciales(self):
             email=input("Ingrese su mail: ")
@@ -68,7 +106,7 @@ class Estudiante(Persona):
                     if lista_estudiantes[i].contrasenia == password:
                         os.system("cls")
                         print("Logueado con exito.\n")
-                        return True
+                        return lista_estudiantes[i]
                     else:
                         print("Email o contraseña invalido.")
                         return False
@@ -78,7 +116,6 @@ class Estudiante(Persona):
                         print("Su usuario no existe, debe darse de alta en el alumnado.")
                         return False
                       
-# 
 class Curso:
     def __init__(self,nombre,contrasenia_matriculacion):
         self.nombre = nombre
@@ -87,8 +124,11 @@ class Curso:
     def __str__(self):
         return f"Curso: {self.nombre}"
 
-    def generar_contrasenia(self):
-        pass
+    def generar_contrasenia():
+        letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(3))
+        numeros = ''.join(random.choice('0123456789') for i in range(2))
+        return letras+numeros
+
 
 lista_estudiantes=[]
 lista_profesores=[]
@@ -106,14 +146,14 @@ lista_profesores.append(profesor1)
 lista_profesores.append(profesor2)
 
 curso1=Curso("Arquitectura de software","")
-curso2=Curso("Ingles 1",profesor1.nombre)
-curso3=Curso("Ingles 2",profesor1.nombre)
+curso2=Curso("Ingles 1","")
+curso3=Curso("Ingles 2","")
 curso4=Curso("Estadistica","")
-curso4=Curso("Laboratorio 1","asdas")
-curso5=Curso("Laboratorio 2","asdas")
+curso4=Curso("Laboratorio 1","")
+curso5=Curso("Laboratorio 2","")
 curso6=Curso("Metodologia","")
-curso7=Curso("Programacion 1","asdas")
-curso8=Curso("Programacion 2","asdas")
+curso7=Curso("Programacion 1","")
+curso8=Curso("Programacion 2","")
 lista_cursos.append(curso1)
 lista_cursos.append(curso2)
 lista_cursos.append(curso3)
@@ -122,4 +162,3 @@ lista_cursos.append(curso5)
 lista_cursos.append(curso6)
 lista_cursos.append(curso7)
 lista_cursos.append(curso8)
-
