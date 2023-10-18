@@ -35,35 +35,41 @@ class Profesor(Persona):
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
         op = int(input())
-        while op < 0 or op > 8:
-            if op < 0 or op > 8:
+        while op < 0 or op > 9:
+            if op < 0 or op > 9:
                 op = int(input("Error, ingrese una opción válida: "))
-
-        if  op == 1:
+        if op == 1:
             op = "Arquitectura de software"
-        elif op == 2:
-             op = "Ingles 1"
-        elif op == 3:
-             op = "Ingles 2"
-        elif op == 4:
-             op = "Laboratorio 1"
-        elif op == 5:
-             op = "Laboratorio 2"
-        elif op == 6:
-             op = "Metodologia de la investigacion"
-        elif op == 7:
-             op = "Programacion 1"
-        elif op == 8:
-             op = "Programacion 2" 
+        elif op ==2:
+            op = "Estadistica"
+        elif op ==3:
+            op = "Ingles 1"
+        elif op ==4:
+            op = "Ingles 2"
+        elif op ==5:
+            op = "Laboratorio de computación 1"
+        elif op ==6:
+            op = "Laboratorio de computación 2"
+        elif op ==7:
+            op = "Metodologia de la investigación"
+        elif op ==8:
+            op = "Programación 1" 
+        elif op == 9:
+            op = "Programación 2"
         else:
-            print("Opción inválida.")
+            print("Opción inválida.")   
 
-        if op in self.mis_cursos:
-            print("Usted ya está dictando este curso.")
-        else:
-            self.mis_cursos.append(op)
-            print(f"{self.nombre} ha empezado a dictar el curso: {op}")
-        input("\nPulse cualquier tecla para volver al menú...")
+        for curso in range(len(lista_cursos)):
+            if lista_cursos[curso].nombre == op and lista_cursos[curso] not in self.mis_cursos:
+                self.mis_cursos.append(lista_cursos[curso])
+                print(f"{self.nombre} ha empezado a dictar el curso: {lista_cursos[curso]}")
+                input("\nPulse cualquier tecla para volver al menú...")
+                return ""
+            elif lista_cursos[curso] in self.mis_cursos and curso == len(lista_cursos):
+                print("Usted ya está a cargo de este curso")
+                input("\nPulse cualquier tecla para continuar...")
+                return ""
+
 
     def validar_credenciales(self):
         os.system("cls")
@@ -122,28 +128,35 @@ class Estudiante(Persona):
         if seleccionado == 1:
             seleccionado = "Arquitectura de software"
         elif seleccionado ==2:
-             seleccionado = "Ingles 1"
+            seleccionado = "Estadistica"
         elif seleccionado ==3:
-             seleccionado = "Ingles 2"
+            seleccionado = "Ingles 1"
         elif seleccionado ==4:
-             seleccionado = "Laboratorio 1"
+            seleccionado = "Ingles 2"
         elif seleccionado ==5:
-             seleccionado = "Laboratorio 2"
+            seleccionado = "Laboratorio 1"
         elif seleccionado ==6:
-             seleccionado = "Metodologia de la investigacion"
+            seleccionado = "Laboratorio 2"
         elif seleccionado ==7:
-             seleccionado = "Programacion 1"
+            seleccionado = "Metodologia de la investigacion"
         elif seleccionado ==8:
-             seleccionado = "Programacion 2" 
+            seleccionado = "Programacion 1" 
+        elif seleccionado == 9:
+            seleccionado = "Programacion 2"
         else:
             print("Opción inválida.")
 
-        if seleccionado in self.mis_cursos:
-            print("Usted ya está inscripto en este curso.")
-        else:
-            self.mis_cursos.append(seleccionado)
-            print(f"{self.nombre} está ahora inscripto en {seleccionado}")
-        input("\nPulse cualquier tecla para volver al menú...")
+        for curso in range(len(lista_cursos)):
+            if lista_cursos[curso].nombre == seleccionado and lista_cursos[curso] not in self.mis_cursos:
+                self.mis_cursos.append(lista_cursos[curso])
+                print(f"{self.nombre} está ahora inscripto en {seleccionado}")
+                input("\nPulse cualquier tecla para volver al menú...")
+                break
+            else:
+                print("Usted ya está inscripto en este curso")
+                input("\nPulse cualquier tecla para continuar...")
+                break
+
 
     def ver_cursos(self):
         os.system("cls")
