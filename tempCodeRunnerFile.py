@@ -1,1 +1,1 @@
-pass
+import clases as clase

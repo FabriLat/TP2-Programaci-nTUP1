@@ -1,20 +1,20 @@
 import clases as clase
 import os
 op = int()
+
 def mostrar_menu():
     os.system("cls")
     print("Bienvenido al sistema del campus virtual\n\nSeleccione una opción del menú:")
     print("1.Ingresar como alumno\n2.Ingresar como profesor\n3.Ver cursos\n4.Salir")
+    
 while op !=4:
     mostrar_menu()
     op = int(input(""))
-
     if op >= 1 and op <= 4:
         if op == 1:
             os.system("cls")
             ingreso = clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
             if ingreso:
-                
                 op_menu_alumno = int()
                 while op_menu_alumno != 3:
                     os.system("cls")

@@ -18,11 +18,13 @@ class Persona(ABC):
     def validar_credenciales(self) -> bool :
         pass
 
+
 class Profesor(Persona):
     def __init__(self,nombre,apellido,email,contrasenia,titulo,anio_egreso):
         super().__init__(nombre,apellido,email,contrasenia)
         self.titulo = titulo
         self.anio_egreso = anio_egreso
+        self.mis_cursos = []
 
     def __str__(self):
         return f"Nombre:{self.nombre} {self.apellido}"
@@ -58,55 +60,51 @@ class Estudiante(Persona):
         
     def __str__(self):
         return f"Estudiante: {self.nombre} {self.apellido}"
-
+    
     def matricular_en_curso(self):
         os.system("cls")
         print("Seleccione el curso para matricularse:\n")
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
         seleccionado = int(input(""))
-
         while seleccionado < 0 or seleccionado > 8:
             if seleccionado < 0 or seleccionado > 8:
                 seleccionado = int(input("Opcion invalida, vuelve a seleccionarla."))
+
         if seleccionado == 1:
             seleccionado = "Arquitectura de software"
-            self.mis_cursos.append(seleccionado)
         elif seleccionado ==2:
              seleccionado = "Ingles 1"
-             self.mis_cursos.append(seleccionado)
         elif seleccionado ==3:
              seleccionado = "Ingles 2"
-             self.mis_cursos.append(seleccionado)
         elif seleccionado ==4:
              seleccionado = "Laboratorio 1"
-             self.mis_cursos.append(seleccionado)
         elif seleccionado ==5:
              seleccionado = "Laboratorio 2"
-             self.mis_cursos.append(seleccionado)
         elif seleccionado ==6:
              seleccionado = "Metodologia de la investigacion"
-             self.mis_cursos.append(seleccionado)
         elif seleccionado ==7:
              seleccionado = "Programacion 1"
-             self.mis_cursos.append(seleccionado)
         elif seleccionado ==8:
              seleccionado = "Programacion 2" 
-             self.mis_cursos.append(seleccionado)
         else:
             print("Opción inválida.")
-        print(f"{self.nombre} está ahora inscripto en {seleccionado}")
-        input("Pulse cualquier telca para volver al menú...")
+
+        if seleccionado in self.mis_cursos:
+            print("Usted ya está inscripto en este curso.")
+        else:
+            self.mis_cursos.append(seleccionado)
+            print(f"{self.nombre} está ahora inscripto en {seleccionado}")
+        input("Pulse cualquier tecla para volver al menú...")
 
     def ver_cursos(self):
         os.system("cls")
         print(f"{self.nombre} está inscripto en: ")
         for curso in self.mis_cursos:
             print(f"- {curso}")
-        input("Presione cualquier telca para continuar...")
+        input("Presione cualquier tecla para continuar...")
 
 
-        
     def validar_credenciales(self):
             email=input("Ingrese su mail: ")
             password = input("Ingrese su contraseña: ")
@@ -116,6 +114,7 @@ class Estudiante(Persona):
                     if lista_estudiantes[i].contrasenia == password:
                         os.system("cls")
                         print("Logueado con exito.\n")
+                        input("Presione cualquier telca para continuar...")
                         return lista_estudiantes[i]
                     else:
                         print("Email o contraseña invalido.")
@@ -155,6 +154,7 @@ profesor2=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",
 lista_profesores.append(profesor1)
 lista_profesores.append(profesor2)
 
+#agregar contraseñas de los cursos
 curso1=Curso("Arquitectura de software","")
 curso2=Curso("Ingles 1","")
 curso3=Curso("Ingles 2","")
