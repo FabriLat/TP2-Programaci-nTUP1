@@ -9,50 +9,54 @@ def mostrar_menu():
     
 while op !=4:
     mostrar_menu()
-    op = int(input(""))
-    if op >= 1 and op <= 4:
-        if op == 1:
-            os.system("cls")
-            ingreso = clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
-            if ingreso:
-                op_menu_alumno = int()
-                while op_menu_alumno != 3:
-                    os.system("cls")
-                    op_menu_alumno = int(input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n"))
-                    if op_menu_alumno == 1:
-                        clase.Estudiante.matricular_en_curso(ingreso)
-                    elif op_menu_alumno == 2:
-                        clase.Estudiante.ver_cursos(ingreso)
-                    elif op_menu_alumno == 3:
-                        pass
-                    else:
-                        print("Opción invalida.")
+    op = input("")
+    if  op.isdigit():
+        op=int(op)
+        if op >= 1 and op <= 4:
+            if op == 1:
+                os.system("cls")
+                ingreso = clase.Estudiante.validar_credenciales(clase.lista_estudiantes)
+                if ingreso:
+                    op_menu_alumno = int()
+                    while op_menu_alumno != 3:
+                        os.system("cls")
+                        op_menu_alumno = int(input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Ver curso\n3-Volver al menu principal\n"))
+                        if op_menu_alumno == 1:
+                            clase.Estudiante.matricular_en_curso(ingreso)
+                        elif op_menu_alumno == 2:
+                            clase.Estudiante.ver_cursos(ingreso)
+                        elif op_menu_alumno == 3:
+                            pass
+                        else:
+                            print("Opción invalida.")
 
-        elif op==2:
-            os.system("cls")
-            ingreso = clase.Profesor.validar_credenciales(clase.lista_profesores)
-            if ingreso:
-                op_menu_profesor = int()
-                while op_menu_profesor != 3:
-                    os.system("cls")
-                    op_menu_profesor = int(input("Seleccione una opcion:\n1-Dictar curso\n2-Ver curso\n3-Volver al menu principal\n"))
-                    if op_menu_profesor == 1:
-                        clase.Profesor.dictar_curso(ingreso)
-                    elif op_menu_profesor == 2:
-                        clase.Profesor.ver_cursos(ingreso)
-                    elif op_menu_profesor == 3:
-                        pass
-                    else:
-                        print("Opción invalida.")
+            elif op==2:
+                os.system("cls")
+                ingreso = clase.Profesor.validar_credenciales(clase.lista_profesores)
+                if ingreso:
+                    op_menu_profesor = int()
+                    while op_menu_profesor != 3:
+                        os.system("cls")
+                        op_menu_profesor = int(input("Seleccione una opcion:\n1-Dictar curso\n2-Ver curso\n3-Volver al menu principal\n"))
+                        if op_menu_profesor == 1:
+                            clase.Profesor.dictar_curso(ingreso)
+                        elif op_menu_profesor == 2:
+                            clase.Profesor.ver_cursos(ingreso)
+                        elif op_menu_profesor == 3:
+                            pass
+                        else:
+                            print("Opción inválida")
 
-        elif op==3: 
-            os.system("cls")
-            print("Aquí esta la lista de cursos disponibles del campus virtual:\n")
-            for i in range(len(clase.lista_cursos)):
-                print(clase.lista_cursos[i])
-            input("\nPresione cualquier tecla para volver al menú...")
+            elif op==3: 
+                os.system("cls")
+                print("Aquí esta la lista de cursos disponibles del campus virtual:\n")
+                for i in range(len(clase.lista_cursos)):
+                    print(clase.lista_cursos[i])
+                input("\nPresione cualquier tecla para volver al menú...")
 
-        elif op==4:
-            pass
+            elif op==4:
+                pass
+        else:
+            input("Valor ingresado inválido, pulse un botón para intentarlo nuevamente...")
     else:
-        print("Valor ingresado inválido")
+        input("El valor ingresado es inválido, pulse un botón para intentarlo nuevamente...")

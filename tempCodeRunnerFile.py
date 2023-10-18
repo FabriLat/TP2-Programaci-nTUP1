@@ -1,1 +1,2 @@
-import clases as clase
+
+                        pass
