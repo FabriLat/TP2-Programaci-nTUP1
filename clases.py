@@ -179,7 +179,7 @@ class Estudiante(Persona):
 class Curso:
     def __init__(self,nombre,contrasenia_matriculacion):
         self.nombre = nombre
-        self.contrasenia_matriculacion = contrasenia_matriculacion
+        self.contrasenia_matriculacion = Curso.generar_contrasenia()
 
     def __str__(self):
         return f"Curso: {self.nombre}"
@@ -207,14 +207,14 @@ lista_profesores.append(profesor2)
 
 #agregar contraseñas de los cursos
 curso1=Curso("Arquitectura de software","")
-curso2=Curso("Ingles 1","")
-curso3=Curso("Ingles 2","")
-curso4=Curso("Estadistica","")
-curso4=Curso("Laboratorio 1","")
-curso5=Curso("Laboratorio 2","")
-curso6=Curso("Metodologia","")
-curso7=Curso("Programacion 1","")
-curso8=Curso("Programacion 2","")
+curso2=Curso("Estadistica","")
+curso3=Curso("Ingles 1","")
+curso4=Curso("Ingles 2","")
+curso5=Curso("Laboratorio de computación 1","")
+curso6=Curso("Laboratorio de computación 2","")
+curso7=Curso("Metodologia de la investigación","")
+curso8=Curso("Programación 1","")
+curso9=Curso("Programación 2","")
 lista_cursos.append(curso1)
 lista_cursos.append(curso2)
 lista_cursos.append(curso3)
@@ -223,3 +223,4 @@ lista_cursos.append(curso5)
 lista_cursos.append(curso6)
 lista_cursos.append(curso7)
 lista_cursos.append(curso8)
+lista_cursos.append(curso9)

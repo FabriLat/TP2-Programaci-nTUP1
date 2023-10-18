@@ -46,7 +46,12 @@ while op !=4:
                         print("Opción invalida.")
 
         elif op==3: 
-            pass
+            os.system("cls")
+            print("Aquí esta la lista de cursos disponibles del campus virtual:\n")
+            for i in range(len(clase.lista_cursos)):
+                print(clase.lista_cursos[i])
+            input("\nPresione cualquier tecla para volver al menú...")
+
         elif op==4:
             pass
     else:
