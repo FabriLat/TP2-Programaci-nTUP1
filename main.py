@@ -30,7 +30,21 @@ while op !=4:
 
         elif op==2:
             os.system("cls")
-            clase.Profesor.validar_credenciales(clase.lista_profesores)
+            ingreso = clase.Profesor.validar_credenciales(clase.lista_profesores)
+            if ingreso:
+                op_menu_profesor = int()
+                while op_menu_profesor != 3:
+                    os.system("cls")
+                    op_menu_profesor = int(input("Seleccione una opcion:\n1-Dictar curso\n2-Ver curso\n3-Volver al menu principal\n"))
+                    if op_menu_profesor == 1:
+                        clase.Profesor.dictar_curso(ingreso)
+                    elif op_menu_profesor == 2:
+                        clase.Profesor.ver_cursos(ingreso)
+                    elif op_menu_profesor == 3:
+                        pass
+                    else:
+                        print("Opción invalida.")
+
         elif op==3: 
             pass
         elif op==4:

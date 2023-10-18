@@ -30,7 +30,40 @@ class Profesor(Persona):
         return f"Nombre:{self.nombre} {self.apellido}"
 
     def dictar_curso(self):
-        pass
+        os.system("cls")
+        print("Seleccione el curso a dictar: ")
+        for curso in range(len(lista_cursos)):
+            print(f"{curso+1}. {lista_cursos[curso]}")
+        op = int(input())
+        while op < 0 or op > 8:
+            if op < 0 or op > 8:
+                op = int(input("Error, ingrese una opción válida: "))
+
+        if  op == 1:
+            op = "Arquitectura de software"
+        elif op == 2:
+             op = "Ingles 1"
+        elif op == 3:
+             op = "Ingles 2"
+        elif op == 4:
+             op = "Laboratorio 1"
+        elif op == 5:
+             op = "Laboratorio 2"
+        elif op == 6:
+             op = "Metodologia de la investigacion"
+        elif op == 7:
+             op = "Programacion 1"
+        elif op == 8:
+             op = "Programacion 2" 
+        else:
+            print("Opción inválida.")
+
+        if op in self.mis_cursos:
+            print("Usted ya está dictando este curso.")
+        else:
+            self.mis_cursos.append(op)
+            print(f"{self.nombre} ha empezado a dictar el curso: {op}")
+        input("\nPulse cualquier tecla para volver al menú...")
 
     def validar_credenciales(self):
         os.system("cls")
@@ -41,15 +74,30 @@ class Profesor(Persona):
             if lista_profesores[i].email == email:
                 if lista_profesores[i].contrasenia == password:
                     print("Logueado con exito.")
-                    return True
+                    input("Presione cualquier tecla para continuar...")
+                    return lista_profesores[i]
                 else:
                     print("Email o contraseña invalido.")
+                    input("Presione cualquier tecla para volver al menú...")
                     return False
             else:
                 i+=1
                 if i == len(lista_profesores):
-                    print("Su usuario no existe, debe darse de alta en el alumnado.")
+                    print("Su usuario no existe, debe darse de alta en el alumnado.\n")
+                    input("Presione cualquier tecla para volver al menú...")
                     return False
+                
+    def ver_cursos(self):
+        os.system("cls")
+        if len(self.mis_cursos) > 0:
+            print("Los cursos que usted tiene a cargo son: ")
+            for curso in range(len(self.mis_cursos)):
+                print(f"- {self.mis_cursos[curso]}")
+            input("\nPulse cualquier tecla para volver al menú...")
+        else:
+            print("Usted no tiene cursos a cargo suyo.")
+            input("\nPulse cualquier tecla para volver al menú...")
+
 
 class Estudiante(Persona):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
@@ -69,7 +117,7 @@ class Estudiante(Persona):
         seleccionado = int(input(""))
         while seleccionado < 0 or seleccionado > 8:
             if seleccionado < 0 or seleccionado > 8:
-                seleccionado = int(input("Opcion invalida, vuelve a seleccionarla."))
+                seleccionado = int(input("Error, ingrese una opción válida: "))
 
         if seleccionado == 1:
             seleccionado = "Arquitectura de software"
@@ -95,7 +143,7 @@ class Estudiante(Persona):
         else:
             self.mis_cursos.append(seleccionado)
             print(f"{self.nombre} está ahora inscripto en {seleccionado}")
-        input("Pulse cualquier tecla para volver al menú...")
+        input("\nPulse cualquier tecla para volver al menú...")
 
     def ver_cursos(self):
         os.system("cls")
@@ -117,12 +165,15 @@ class Estudiante(Persona):
                         input("Presione cualquier telca para continuar...")
                         return lista_estudiantes[i]
                     else:
-                        print("Email o contraseña invalido.")
+                        print("Email o contraseña invalido.\n")
+                        input("Presione cualquier telca para volver al menú...")
+
                         return False
                 else:
                     i+=1
                     if i == len(lista_estudiantes):
-                        print("Su usuario no existe, debe darse de alta en el alumnado.")
+                        print("Su usuario no existe, debe darse de alta en el alumnado.\n")
+                        input("Presione cualquier telca para volver al menú...")
                         return False
                                  
 class Curso:
