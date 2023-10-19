@@ -18,7 +18,6 @@ class Persona(ABC):
     def validar_credenciales(self) -> bool :
         pass
 
-
 class Profesor(Persona):
     def __init__(self,nombre,apellido,email,contrasenia,titulo,anio_egreso):
         super().__init__(nombre,apellido,email,contrasenia)
@@ -63,13 +62,13 @@ class Profesor(Persona):
             if lista_cursos[curso].nombre == op and lista_cursos[curso] not in self.mis_cursos:
                 self.mis_cursos.append(lista_cursos[curso])
                 print(f"{self.nombre} ha empezado a dictar el curso: {lista_cursos[curso]}")
+                print(f"La clave del curso es: {lista_cursos[curso].contrasenia_matriculacion}")
                 input("\nPulse cualquier tecla para volver al menú...")
                 return ""
             elif lista_cursos[curso] in self.mis_cursos and curso == len(lista_cursos):
                 print("Usted ya está a cargo de este curso")
                 input("\nPulse cualquier tecla para continuar...")
                 return ""
-
 
     def validar_credenciales(self):
         os.system("cls")
@@ -98,12 +97,11 @@ class Profesor(Persona):
         if len(self.mis_cursos) > 0:
             print("Los cursos que usted tiene a cargo son: ")
             for curso in range(len(self.mis_cursos)):
-                print(f"- {self.mis_cursos[curso]}")
+                print(f"- {self.mis_cursos[curso]}({self.mis_cursos[curso].contrasenia_matriculacion})")
             input("\nPulse cualquier tecla para volver al menú...")
         else:
             print("Usted no tiene cursos a cargo suyo.")
             input("\nPulse cualquier tecla para volver al menú...")
-
 
 class Estudiante(Persona):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
@@ -157,14 +155,12 @@ class Estudiante(Persona):
                 input("\nPulse cualquier tecla para continuar...")
                 break
 
-
     def ver_cursos(self):
         os.system("cls")
         print(f"{self.nombre} está inscripto en: ")
         for curso in self.mis_cursos:
             print(f"- {curso}")
         input("Presione cualquier tecla para continuar...")
-
 
     def validar_credenciales(self):
             email=input("Ingrese su mail: ")
@@ -180,15 +176,13 @@ class Estudiante(Persona):
                     else:
                         print("Email o contraseña invalido.\n")
                         input("Presione cualquier telca para volver al menú...")
-
                         return False
                 else:
                     i+=1
                     if i == len(lista_estudiantes):
                         print("Su usuario no existe, debe darse de alta en el alumnado.\n")
                         input("Presione cualquier telca para volver al menú...")
-                        return False
-                                 
+                        return False           
 class Curso:
     def __init__(self,nombre,contrasenia_matriculacion):
         self.nombre = nombre
@@ -201,7 +195,6 @@ class Curso:
         letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(3))
         numeros = ''.join(random.choice('0123456789') for i in range(2))
         return letras+numeros
-
 
 lista_estudiantes=[]
 lista_profesores=[]
@@ -218,7 +211,6 @@ profesor2=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",
 lista_profesores.append(profesor1)
 lista_profesores.append(profesor2)
 
-#agregar contraseñas de los cursos
 curso1=Curso("Arquitectura de software","")
 curso2=Curso("Estadistica","")
 curso3=Curso("Ingles 1","")
