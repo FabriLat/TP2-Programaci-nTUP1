@@ -2,7 +2,7 @@ from abc import ABC,abstractmethod
 import os
 import random
 
-class Persona(ABC):
+class Usuario(ABC):
     @abstractmethod
     def __init__(self,nombre,apellido,email,contrasenia):
         self.nombre = nombre
@@ -18,7 +18,7 @@ class Persona(ABC):
     def validar_credenciales(self) -> bool :
         pass
 
-class Profesor(Persona):
+class Profesor(Usuario):
     def __init__(self,nombre,apellido,email,contrasenia,titulo,anio_egreso):
         super().__init__(nombre,apellido,email,contrasenia)
         self.titulo = titulo
@@ -61,14 +61,15 @@ class Profesor(Persona):
         for curso in range(len(lista_cursos)):
             if lista_cursos[curso].nombre == op and lista_cursos[curso] not in self.mis_cursos:
                 self.mis_cursos.append(lista_cursos[curso])
-                print(f"{self.nombre} ha empezado a dictar el curso: {lista_cursos[curso]}")
+                print(f"{self.nombre} ha empezado a dictar el curso: {lista_cursos[curso].nombre}")
                 print(f"La clave del curso es: {lista_cursos[curso].contrasenia_matriculacion}")
                 input("\nPulse cualquier tecla para volver al menú...")
                 return ""
-            elif lista_cursos[curso] in self.mis_cursos and curso == len(lista_cursos):
+            elif lista_cursos[curso].nombre == op and lista_cursos[curso] in self.mis_cursos:
                 print("Usted ya está a cargo de este curso")
                 input("\nPulse cualquier tecla para continuar...")
-                return ""
+                break
+
 
     def validar_credenciales(self):
         os.system("cls")
@@ -103,7 +104,7 @@ class Profesor(Persona):
             print("Usted no tiene cursos a cargo suyo.")
             input("\nPulse cualquier tecla para volver al menú...")
 
-class Estudiante(Persona):
+class Estudiante(Usuario):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
         super().__init__(nombre, apellido, email, contrasenia)
         self.legajo = legajo
@@ -119,8 +120,8 @@ class Estudiante(Persona):
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
         seleccionado = int(input(""))
-        while seleccionado < 0 or seleccionado > 8:
-            if seleccionado < 0 or seleccionado > 8:
+        while seleccionado < 0 or seleccionado > 9:
+            if seleccionado < 0 or seleccionado > 9:
                 seleccionado = int(input("Error, ingrese una opción válida: "))
 
         if seleccionado == 1:
@@ -132,31 +133,36 @@ class Estudiante(Persona):
         elif seleccionado ==4:
             seleccionado = "Ingles 2"
         elif seleccionado ==5:
-            seleccionado = "Laboratorio 1"
+            seleccionado = "Laboratorio de computación 1"
         elif seleccionado ==6:
-            seleccionado = "Laboratorio 2"
+            seleccionado = "Laboratorio de computación 2"
         elif seleccionado ==7:
-            seleccionado = "Metodologia de la investigacion"
+            seleccionado = "Metodologia de la investigación"
         elif seleccionado ==8:
-            seleccionado = "Programacion 1" 
+            seleccionado = "Programación 1" 
         elif seleccionado == 9:
-            seleccionado = "Programacion 2"
+            seleccionado = "Programación 2"
         else:
             print("Opción inválida.")
 
+        
         for curso in range(len(lista_cursos)):
             if lista_cursos[curso].nombre == seleccionado and lista_cursos[curso] not in self.mis_cursos:
                 self.mis_cursos.append(lista_cursos[curso])
                 print(f"{self.nombre} está ahora inscripto en {seleccionado}")
                 input("\nPulse cualquier tecla para volver al menú...")
                 break
-            else:
+            elif lista_cursos[curso].nombre == seleccionado and lista_cursos[curso] in self.mis_cursos:
                 print("Usted ya está inscripto en este curso")
                 input("\nPulse cualquier tecla para continuar...")
                 break
 
     def ver_cursos(self):
         os.system("cls")
+        if len(self.mis_cursos) == 0:
+            print(f"{self.nombre} no está inscripto en ningun curso")
+            input("Pulse cualquier boton para continuar...")
+            return ""
         print(f"{self.nombre} está inscripto en: ")
         for curso in self.mis_cursos:
             print(f"- {curso}")
@@ -199,33 +205,34 @@ class Curso:
 lista_estudiantes=[]
 lista_profesores=[]
 lista_cursos=[]
-alumno1=Estudiante("Pedro","Rogriguez","Pedro@gmail.com","pedro123",123,2023)
-alumno2=Estudiante("Leo","Messi","Leo@gmail.com","leo123",456,2022)
-alumno3=Estudiante("Enzo","Fernandez","Enzo@gmail.com","enzo123",789,2021)
+alumno=Estudiante("Pedro","Rogriguez","Pedro@gmail.com","pedro123",123,2023)
+lista_estudiantes.append(alumno)
+alumno=Estudiante("Leo","Messi","Leo@gmail.com","leo123",456,2022)
+lista_estudiantes.append(alumno)
+alumno=Estudiante("Enzo","Fernandez","Enzo@gmail.com","enzo123",789,2021)
+lista_estudiantes.append(alumno)
 
-lista_estudiantes.append(alumno1)
-lista_estudiantes.append(alumno2)
-lista_estudiantes.append(alumno3)
-profesor1=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeniero",1990)
-profesor2=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
-lista_profesores.append(profesor1)
-lista_profesores.append(profesor2)
+profesor=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeniero",1990)
+lista_profesores.append(profesor)
+profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
+lista_profesores.append(profesor)
 
-curso1=Curso("Arquitectura de software","")
-curso2=Curso("Estadistica","")
-curso3=Curso("Ingles 1","")
-curso4=Curso("Ingles 2","")
-curso5=Curso("Laboratorio de computación 1","")
-curso6=Curso("Laboratorio de computación 2","")
-curso7=Curso("Metodologia de la investigación","")
-curso8=Curso("Programación 1","")
-curso9=Curso("Programación 2","")
-lista_cursos.append(curso1)
-lista_cursos.append(curso2)
-lista_cursos.append(curso3)
-lista_cursos.append(curso4)
-lista_cursos.append(curso5)
-lista_cursos.append(curso6)
-lista_cursos.append(curso7)
-lista_cursos.append(curso8)
-lista_cursos.append(curso9)
+curso=Curso("Arquitectura de software","")
+lista_cursos.append(curso)
+curso=Curso("Estadistica","")
+lista_cursos.append(curso)
+curso=Curso("Ingles 1","")
+lista_cursos.append(curso)
+curso=Curso("Ingles 2","")
+lista_cursos.append(curso)
+curso=Curso("Laboratorio de computación 1","")
+lista_cursos.append(curso)
+curso=Curso("Laboratorio de computación 2","")
+lista_cursos.append(curso)
+curso=Curso("Metodologia de la investigación","")
+lista_cursos.append(curso)
+curso=Curso("Programación 1","")
+lista_cursos.append(curso)
+curso=Curso("Programación 2","")
+lista_cursos.append(curso)
+
