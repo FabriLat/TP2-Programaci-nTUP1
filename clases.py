@@ -33,10 +33,10 @@ class Profesor(Usuario):
         print("Seleccione el curso a dictar: ")
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
-        op = int(input())
-        while op < 0 or op > 9:
-            if op < 0 or op > 9:
-                op = int(input("Error, ingrese una opción válida: "))
+        op = input("")
+        while not op.isdigit() or not (1 <= int(op) <= 9):
+            op = input("Error, ingrese una opción válida: ")
+        op = int(op)
         if op == 1:
             op = "Arquitectura de software"
         elif op ==2:
@@ -61,6 +61,7 @@ class Profesor(Usuario):
         for curso in range(len(lista_cursos)):
             if lista_cursos[curso].nombre == op and lista_cursos[curso] not in self.mis_cursos:
                 self.mis_cursos.append(lista_cursos[curso])
+                os.system("cls")
                 print(f"{self.nombre} ha empezado a dictar el curso: {lista_cursos[curso].nombre}")
                 print(f"La clave del curso es: {lista_cursos[curso].contrasenia_matriculacion}")
                 input("\nPulse cualquier tecla para volver al menú...")
@@ -119,10 +120,12 @@ class Estudiante(Usuario):
         print("Seleccione el curso para matricularse:\n")
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
-        seleccionado = int(input(""))
-        while seleccionado < 0 or seleccionado > 9:
-            if seleccionado < 0 or seleccionado > 9:
-                seleccionado = int(input("Error, ingrese una opción válida: "))
+
+        seleccionado = input("")
+        while not seleccionado.isdigit() or not (1 <= int(seleccionado) <= 9):
+            seleccionado = input("Error, ingrese una opción válida: ")
+        seleccionado = int(seleccionado)
+
 
         if seleccionado == 1:
             seleccionado = "Arquitectura de software"

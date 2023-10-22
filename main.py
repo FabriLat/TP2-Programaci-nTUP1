@@ -48,6 +48,7 @@ while op !=4:
                             pass
                         else:
                             print("Opción inválida")
+                            input("Pulse cualquier tecla para volver a intentarlo...")
 
             elif op==3: 
                 os.system("cls")
