@@ -82,8 +82,25 @@ class Profesor(Usuario):
                 i+=1
                 if i == len(lista_profesores):
                     print("Su usuario no existe, debe darse de alta en el alumnado.\n")
-                    input("Presione cualquier tecla para volver al menú...")
-                    return False
+                    alta = input("Ingrese 'admin' para darse de alta u otro caracter para volver al menú: ")
+
+        
+        if alta == "admin":
+            os.system("cls")
+            print("--Alta de profesores--\n")
+            nombre = input("Ingrese nombre: ")
+            apellido = input("Ingrese apellido: ")
+            mail = input("Ingrese mail: ")
+            contrasenia = input("Ingrese contraseña: ")
+            titulo = input("Ingrese su titulo: ")
+            anio_egreso = input("Ingrese su año de egreso: ")
+            nuevo_profesor = Profesor(nombre,apellido,mail,contrasenia,titulo,anio_egreso)
+            lista_profesores.append(nuevo_profesor)
+            input("Profesor registrado exitosamente...")
+        else:
+            return ""
+
+
                 
     def ver_cursos(self):
         os.system("cls")
@@ -131,7 +148,6 @@ class Estudiante(Usuario):
             if clave == lista_cursos[claves].contrasenia_matriculacion and nombre == lista_cursos[claves].nombre:
                 bandera = True
                 seleccion = lista_cursos[seleccion - 1]
-       
        
         if seleccion not in self.mis_cursos and bandera == True:
             self.mis_cursos.append(seleccion)
@@ -190,6 +206,29 @@ class Curso:
         letras = ''.join(random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(3))
         numeros = ''.join(random.choice('0123456789') for i in range(2))
         return letras+numeros
+    
+
+class Archivo:
+    def __init__(self,nombre,fecha,formato):
+        self.nombre = nombre
+        self.fecha = fecha
+        self.formato = formato
+
+    def __str__(self) -> str:
+        return f"Archivo: {self.nombre}, fecha: {self.fecha}, formato: {self.formato}"
+
+
+class Carrera:
+    def __init__(self,nombre,cant_anios):
+        self.nombre = nombre
+        self.cant_anios = cant_anios
+
+    def __str__(self):
+        return f"carrera:{self.nombre}"
+
+    def get_cantidad_materias(self):
+        pass
+
 
 lista_estudiantes=[]
 lista_profesores=[]
@@ -206,5 +245,3 @@ lista_profesores.append(profesor)
 profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","Ingeniero",1980)
 lista_profesores.append(profesor)
 
-curso = Curso("Estadistica","es123")
-lista_cursos.append(curso)
