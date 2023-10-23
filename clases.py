@@ -30,48 +30,43 @@ class Profesor(Usuario):
 
     def dictar_curso(self):
         os.system("cls")
-        print("Seleccione el curso a dictar: ")
-        for curso in range(len(lista_cursos)):
-            print(f"{curso+1}. {lista_cursos[curso]}")
-        op = input("")
-        while not op.isdigit() or not (1 <= int(op) <= 9):
-            op = input("Error, ingrese una opción válida: ")
-        op = int(op)
-        if op == 1:
-            op = "Arquitectura de software"
-        elif op ==2:
-            op = "Estadistica"
-        elif op ==3:
-            op = "Ingles 1"
-        elif op ==4:
-            op = "Ingles 2"
-        elif op ==5:
-            op = "Laboratorio de computación 1"
-        elif op ==6:
-            op = "Laboratorio de computación 2"
-        elif op ==7:
-            op = "Metodologia de la investigación"
-        elif op ==8:
-            op = "Programación 1" 
-        elif op == 9:
-            op = "Programación 2"
-        else:
-            print("Opción inválida.")   
 
-        for curso in range(len(lista_cursos)):
-            if lista_cursos[curso].nombre == op and lista_cursos[curso] not in self.mis_cursos:
-                self.mis_cursos.append(lista_cursos[curso])
-                os.system("cls")
-                print(f"{self.nombre} ha empezado a dictar el curso: {lista_cursos[curso].nombre}")
-                print(f"La clave del curso es: {lista_cursos[curso].contrasenia_matriculacion}")
-                input("\nPulse cualquier tecla para volver al menú...")
-                return ""
-            elif lista_cursos[curso].nombre == op and lista_cursos[curso] in self.mis_cursos:
+        nombre_curso = input("Ingrese el nombre del curso a dictar: ")
+        while len(nombre_curso) == 0:
+            if len(nombre_curso) == 0:
+                nombre_curso = input("Error, ingrese un nombre válido: ")
+        nombre_curso.capitalize()
+        clave_curso = input("Ingrese la clave de matriculación: ")
+        while len(clave_curso) < 2 or len(clave_curso) > 6:
+            if len(clave_curso) < 2 or len(clave_curso) > 6:
+                clave_curso = input("Error, ingrese un valor alfanumerico entre 3-5 caracteres")
+
+        nuevo_curso = Curso(nombre_curso,clave_curso)
+        if len(self.mis_cursos) == 0:
+            lista_cursos.append(nuevo_curso)
+            self.mis_cursos.append(nuevo_curso)
+            print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
+            input("Pulse cualquier tecla para continuar...")
+            return ""
+
+
+        for curso in range(len(self.mis_cursos)):
+            if nuevo_curso.nombre == self.mis_cursos[curso].nombre:
                 print("Usted ya está a cargo de este curso")
-                input("\nPulse cualquier tecla para continuar...")
-                break
+                input("Pulse cualquier tecla para volver al menú...")  
+                return ""
+
+        lista_cursos.append(nuevo_curso)
+        self.mis_cursos.append(nuevo_curso)
+        print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
+        input("Pulse cualquier tecla para continuar...")
+        return ""
+                
 
 
+    
+
+        
     def validar_credenciales(self):
         os.system("cls")
         email=input("Ingrese su mail: ")
@@ -117,48 +112,38 @@ class Estudiante(Usuario):
     
     def matricular_en_curso(self):
         os.system("cls")
+        if len(lista_cursos) == 0:
+            print("No hay cursos disponibles")
+            return ""
+        
         print("Seleccione el curso para matricularse:\n")
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
 
-        seleccionado = input("")
-        while not seleccionado.isdigit() or not (1 <= int(seleccionado) <= 9):
-            seleccionado = input("Error, ingrese una opción válida: ")
-        seleccionado = int(seleccionado)
+
+        while True:
+            seleccion = input("")
+            if seleccion.isdigit():
+                seleccion = int(seleccion)
+                if 0 < seleccion <= len(lista_cursos):
+                    break
+            print("Error, seleccione un valor válido.")
 
 
-        if seleccionado == 1:
-            seleccionado = "Arquitectura de software"
-        elif seleccionado ==2:
-            seleccionado = "Estadistica"
-        elif seleccionado ==3:
-            seleccionado = "Ingles 1"
-        elif seleccionado ==4:
-            seleccionado = "Ingles 2"
-        elif seleccionado ==5:
-            seleccionado = "Laboratorio de computación 1"
-        elif seleccionado ==6:
-            seleccionado = "Laboratorio de computación 2"
-        elif seleccionado ==7:
-            seleccionado = "Metodologia de la investigación"
-        elif seleccionado ==8:
-            seleccionado = "Programación 1" 
-        elif seleccionado == 9:
-            seleccionado = "Programación 2"
+        seleccion = lista_cursos[seleccion - 1]
+        if seleccion not in self.mis_cursos:
+            self.mis_cursos.append(seleccion)
+            print(f"{self.nombre} se ha inscrito en {seleccion}")
+            input("Pulse cualquier tecla para continuar...")
         else:
-            print("Opción inválida.")
+            print(f"{self.nombre} ya está inscripto en este curso")
+            input("Pulse cualquier tecla para volver al menú...")
 
-        
-        for curso in range(len(lista_cursos)):
-            if lista_cursos[curso].nombre == seleccionado and lista_cursos[curso] not in self.mis_cursos:
-                self.mis_cursos.append(lista_cursos[curso])
-                print(f"{self.nombre} está ahora inscripto en {seleccionado}")
-                input("\nPulse cualquier tecla para volver al menú...")
-                break
-            elif lista_cursos[curso].nombre == seleccionado and lista_cursos[curso] in self.mis_cursos:
-                print("Usted ya está inscripto en este curso")
-                input("\nPulse cualquier tecla para continuar...")
-                break
+
+
+
+
+
 
     def ver_cursos(self):
         os.system("cls")
@@ -195,7 +180,7 @@ class Estudiante(Usuario):
 class Curso:
     def __init__(self,nombre,contrasenia_matriculacion):
         self.nombre = nombre
-        self.contrasenia_matriculacion = Curso.generar_contrasenia()
+        self.contrasenia_matriculacion = contrasenia_matriculacion
 
     def __str__(self):
         return f"Curso: {self.nombre}"
@@ -220,22 +205,5 @@ lista_profesores.append(profesor)
 profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
 lista_profesores.append(profesor)
 
-curso=Curso("Arquitectura de software","")
+curso = Curso("Estadistica","es123")
 lista_cursos.append(curso)
-curso=Curso("Estadistica","")
-lista_cursos.append(curso)
-curso=Curso("Ingles 1","")
-lista_cursos.append(curso)
-curso=Curso("Ingles 2","")
-lista_cursos.append(curso)
-curso=Curso("Laboratorio de computación 1","")
-lista_cursos.append(curso)
-curso=Curso("Laboratorio de computación 2","")
-lista_cursos.append(curso)
-curso=Curso("Metodologia de la investigación","")
-lista_cursos.append(curso)
-curso=Curso("Programación 1","")
-lista_cursos.append(curso)
-curso=Curso("Programación 2","")
-lista_cursos.append(curso)
-
