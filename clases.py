@@ -62,11 +62,6 @@ class Profesor(Usuario):
         input("Pulse cualquier tecla para continuar...")
         return ""
                 
-
-
-    
-
-        
     def validar_credenciales(self):
         os.system("cls")
         email=input("Ingrese su mail: ")
@@ -112,6 +107,7 @@ class Estudiante(Usuario):
     
     def matricular_en_curso(self):
         os.system("cls")
+        bandera = False
         if len(lista_cursos) == 0:
             print("No hay cursos disponibles")
             return ""
@@ -120,7 +116,6 @@ class Estudiante(Usuario):
         for curso in range(len(lista_cursos)):
             print(f"{curso+1}. {lista_cursos[curso]}")
 
-
         while True:
             seleccion = input("")
             if seleccion.isdigit():
@@ -128,21 +123,25 @@ class Estudiante(Usuario):
                 if 0 < seleccion <= len(lista_cursos):
                     break
             print("Error, seleccione un valor válido.")
+        nombre = lista_cursos[seleccion - 1].nombre
+        clave = input("Ingrese clave de matriculación: ")
 
-
-        seleccion = lista_cursos[seleccion - 1]
-        if seleccion not in self.mis_cursos:
+        for claves in range(len(lista_cursos)):
+            if clave == lista_cursos[claves].contrasenia_matriculacion and nombre == lista_cursos[claves].nombre:
+                bandera = True
+                seleccion = lista_cursos[seleccion - 1]
+       
+       
+        if seleccion not in self.mis_cursos and bandera == True:
             self.mis_cursos.append(seleccion)
-            print(f"{self.nombre} se ha inscrito en {seleccion}")
+            print(f"{self.nombre} se ha inscripto en {seleccion}")
             input("Pulse cualquier tecla para continuar...")
+        elif bandera == False:
+            print("Error, clave incorrecta.")
+            input("Pulse cualquier tecla para volver al menú...")
         else:
             print(f"{self.nombre} ya está inscripto en este curso")
             input("Pulse cualquier tecla para volver al menú...")
-
-
-
-
-
 
 
     def ver_cursos(self):
