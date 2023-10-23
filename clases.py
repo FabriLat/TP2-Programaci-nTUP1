@@ -128,6 +128,7 @@ class Estudiante(Usuario):
         bandera = False
         if len(lista_cursos) == 0:
             print("No hay cursos disponibles")
+            input("Pulse cualquier tecla para volver al menu...")
             return ""
         
         print("Seleccione el curso para matricularse:\n")
@@ -160,6 +161,32 @@ class Estudiante(Usuario):
         else:
             print(f"{self.nombre} ya está inscripto en este curso")
             input("Pulse cualquier tecla para volver al menú...")
+
+
+    def desmatricular_curso(self):
+        os.system("cls")
+        if len(self.mis_cursos) == 0:
+            print("Usted no está matriculado en ningun curso.")
+            input("Pulse cualquier tecla para volver al menú...")
+            return ""
+        print("Seleccione el curso para desmatricularse:\n")
+        for curso in range(len(self.mis_cursos)):
+            print(f"{curso+1}. {self.mis_cursos[curso]}")
+
+        while True:
+            seleccion = input("")
+            if seleccion.isdigit():
+                seleccion = int(seleccion)
+                if 0 < seleccion <= len(self.mis_cursos):
+                    break
+                else:
+                    print("Valor ingresado inválido, intente nuevamente: ")
+        eliminado = self.mis_cursos.pop(seleccion-1)   
+        print(f"Usted se ha desmatriculado de {eliminado}")
+        input("Presione cualquier tecla para volver al menú...")
+        
+        
+
 
 
     def ver_cursos(self):
