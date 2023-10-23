@@ -105,13 +105,15 @@ class Profesor(Usuario):
     def ver_cursos(self):
         os.system("cls")
         if len(self.mis_cursos) > 0:
-            print("Los cursos que usted tiene a cargo son: ")
-            for curso in range(len(self.mis_cursos)):
-                print(f"- {self.mis_cursos[curso]}({self.mis_cursos[curso].contrasenia_matriculacion})")
-            input("\nPulse cualquier tecla para volver al menú...")
+            print("Los cursos que usted tiene a cargo son:")
+            i=1
+            for curso in sorted(self.mis_cursos, key=lambda x: x.nombre):
+                print(f"{i} - {curso.nombre} ({curso.contrasenia_matriculacion})")
+                i= i+1
         else:
             print("Usted no tiene cursos a cargo suyo.")
-            input("\nPulse cualquier tecla para volver al menú...")
+        input("\nPulse cualquier tecla para volver al menú...")
+
 
 class Estudiante(Usuario):
     def __init__(self, nombre, apellido, email, contrasenia, legajo, anio_inscripcion_carrera):
@@ -185,10 +187,6 @@ class Estudiante(Usuario):
         print(f"Usted se ha desmatriculado de {eliminado}")
         input("Presione cualquier tecla para volver al menú...")
         
-        
-
-
-
     def ver_cursos(self):
         os.system("cls")
         if len(self.mis_cursos) == 0:
@@ -196,7 +194,7 @@ class Estudiante(Usuario):
             input("Pulse cualquier boton para continuar...")
             return ""
         print(f"{self.nombre} está inscripto en: ")
-        for curso in self.mis_cursos:
+        for curso in sorted(self.mis_cursos):
             print(f"- {curso}")
         input("Presione cualquier tecla para continuar...")
 
@@ -271,4 +269,6 @@ profesor=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingenie
 lista_profesores.append(profesor)
 profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","Ingeniero",1980)
 lista_profesores.append(profesor)
+
+carrera = Carrera("Tecnicatura Unviersitaria En P   rogramación",2)
 
