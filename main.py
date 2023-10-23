@@ -21,7 +21,7 @@ while op !=4:
                     
                     while op_menu_alumno != "4":
                         os.system("cls")    
-                        op_menu_alumno = (input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Desmatricularse a u curso\n3-Ver mis cursos\n4-Volver al menu principal\n"))
+                        op_menu_alumno = (input("Seleccione una opcion:\n1-Matricularse a un curso\n2-Desmatricularse a un curso\n3-Ver mis cursos\n4-Volver al menu principal\n"))
                         if op_menu_alumno == "1" and op_menu_alumno.isdigit():
                             clase.Estudiante.matricular_en_curso(ingreso)
                         elif op_menu_alumno == "2" and op_menu_alumno.isdigit():

@@ -35,20 +35,19 @@ class Profesor(Usuario):
         while len(nombre_curso) == 0:
             if len(nombre_curso) == 0:
                 nombre_curso = input("Error, ingrese un nombre válido: ")
-        nombre_curso.capitalize()
         clave_curso = input("Ingrese la clave de matriculación: ")
         while len(clave_curso) < 2 or len(clave_curso) > 6:
             if len(clave_curso) < 2 or len(clave_curso) > 6:
                 clave_curso = input("Error, ingrese un valor alfanumerico entre 3-5 caracteres")
 
-        nuevo_curso = Curso(nombre_curso,clave_curso)
+        codigo = len(lista_cursos) + 1
+        nuevo_curso = Curso(nombre_curso,clave_curso,codigo)
         if len(self.mis_cursos) == 0:
             lista_cursos.append(nuevo_curso)
             self.mis_cursos.append(nuevo_curso)
             print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
             input("Pulse cualquier tecla para continuar...")
             return ""
-
 
         for curso in range(len(self.mis_cursos)):
             if nuevo_curso.nombre == self.mis_cursos[curso].nombre:
@@ -194,8 +193,8 @@ class Estudiante(Usuario):
             input("Pulse cualquier boton para continuar...")
             return ""
         print(f"{self.nombre} está inscripto en: ")
-        for curso in sorted(self.mis_cursos):
-            print(f"- {curso}")
+        for curso in sorted(self.mis_cursos, key=lambda x: x.codigo):
+            print(f"{curso.codigo}. {curso.nombre}")
         input("Presione cualquier tecla para continuar...")
 
     def validar_credenciales(self):
@@ -220,9 +219,10 @@ class Estudiante(Usuario):
                         input("Presione cualquier telca para volver al menú...")
                         return False           
 class Curso:
-    def __init__(self,nombre,contrasenia_matriculacion):
+    def __init__(self,nombre,contrasenia_matriculacion,codigo):
         self.nombre = nombre
         self.contrasenia_matriculacion = contrasenia_matriculacion
+        self.codigo = codigo
 
     def __str__(self):
         return f"Curso: {self.nombre}"
@@ -232,6 +232,12 @@ class Curso:
         numeros = ''.join(random.choice('0123456789') for i in range(2))
         return letras+numeros
     
+    def nuevo_archivo(self):
+        nombre = input("Ingrese nombre del archivo: ")
+        fecha = input("Ingrese fecha: ")
+        formato= input("Ingrese formato: ")
+        Archivo(nombre,fecha,formato)
+    
 
 class Archivo:
     def __init__(self,nombre,fecha,formato):
@@ -239,7 +245,7 @@ class Archivo:
         self.fecha = fecha
         self.formato = formato
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"Archivo: {self.nombre}, fecha: {self.fecha}, formato: {self.formato}"
 
 
@@ -252,7 +258,7 @@ class Carrera:
         return f"carrera:{self.nombre}"
 
     def get_cantidad_materias(self):
-        pass
+        return len(lista_cursos)
 
 
 lista_estudiantes=[]
