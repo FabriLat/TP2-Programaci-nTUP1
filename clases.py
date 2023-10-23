@@ -58,6 +58,7 @@ class Profesor(Usuario):
 
         lista_cursos.append(nuevo_curso)
         self.mis_cursos.append(nuevo_curso)
+        os.system("cls")
         print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
         input("Pulse cualquier tecla para continuar...")
         return ""
@@ -134,7 +135,8 @@ class Estudiante(Usuario):
        
         if seleccion not in self.mis_cursos and bandera == True:
             self.mis_cursos.append(seleccion)
-            print(f"{self.nombre} se ha inscripto en {seleccion}")
+            os.system("cls")
+            print(f"{self.nombre} se ha inscripto en el {seleccion}")
             input("Pulse cualquier tecla para continuar...")
         elif bandera == False:
             print("Error, clave incorrecta.")
@@ -201,7 +203,7 @@ lista_estudiantes.append(alumno)
 
 profesor=Profesor("Carlitos","Niell","carlitos@gmail.com","carlitos123","Ingeniero",1990)
 lista_profesores.append(profesor)
-profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","ingeniero",1980)
+profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","Ingeniero",1980)
 lista_profesores.append(profesor)
 
 curso = Curso("Estadistica","es123")
