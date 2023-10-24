@@ -11,11 +11,11 @@ class Usuario(ABC):
         self.contrasenia=contrasenia
 
     @abstractmethod
-    def __str__(self) -> str:
+    def __str__(self):
         pass
     
     @abstractmethod
-    def validar_credenciales(self) -> bool :
+    def validar_credenciales(self):
         pass
 
 class Profesor(Usuario):
@@ -41,11 +41,12 @@ class Profesor(Usuario):
                 clave_curso = input("Error, ingrese un valor alfanumerico entre 3-5 caracteres")
 
         codigo = len(lista_cursos) + 1
-        nuevo_curso = Curso(nombre_curso,clave_curso,codigo)
+        nuevo_curso = Curso(nombre_curso.capitalize(),clave_curso,codigo)
         if len(self.mis_cursos) == 0:
             lista_cursos.append(nuevo_curso)
             self.mis_cursos.append(nuevo_curso)
             print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
+            print(f"Código: {codigo}\nContraseña: {clave_curso}")
             input("Pulse cualquier tecla para continuar...")
             return ""
 
@@ -59,6 +60,7 @@ class Profesor(Usuario):
         self.mis_cursos.append(nuevo_curso)
         os.system("cls")
         print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
+        print(f"Código: {codigo}\nContraseña: {clave_curso}")
         input("Pulse cualquier tecla para continuar...")
         return ""
                 
@@ -82,8 +84,7 @@ class Profesor(Usuario):
                 if i == len(lista_profesores):
                     print("Su usuario no existe, debe darse de alta en el alumnado.\n")
                     alta = input("Ingrese 'admin' para darse de alta u otro caracter para volver al menú: ")
-
-        
+ 
         if alta == "admin":
             os.system("cls")
             print("--Alta de profesores--\n")
@@ -98,9 +99,7 @@ class Profesor(Usuario):
             input("Profesor registrado exitosamente...")
         else:
             return ""
-
-
-                
+      
     def ver_cursos(self):
         os.system("cls")
         if len(self.mis_cursos) > 0:
@@ -111,7 +110,21 @@ class Profesor(Usuario):
                 i= i+1
         else:
             print("Usted no tiene cursos a cargo suyo.")
-        input("\nPulse cualquier tecla para volver al menú...")
+
+        if len(self.mis_cursos) > 0:
+            seleccion = int(input("Seleccione un curso de los mencionados anteriormente: "))
+            self.mis_cursos = sorted(self.mis_cursos, key=lambda x: x.nombre)
+            os.system("cls")
+            print("Datos del curso: ")
+            print(f"Nombre: {self.mis_cursos[seleccion-1].nombre}\nCódigo: {self.mis_cursos[seleccion-1].codigo}\nContraseña: {self.mis_cursos[seleccion-1].contrasenia_matriculacion}\nCantidad de archivos: {len(self.mis_cursos[seleccion-1].archivos)}")
+            nuevo_archivo = input("\nDesea agregar un nuevo archivo\n1-Si\n2-No\n")
+            curso_seleccionado = self.mis_cursos[seleccion-1]
+            if nuevo_archivo == "1":
+                nuevo = curso_seleccionado.nuevo_archivo()
+                curso_seleccionado.archivos.append(nuevo)
+            else:
+                print("Pulsa un boton para volver al menú...")
+
 
 
 class Estudiante(Usuario):
@@ -195,7 +208,25 @@ class Estudiante(Usuario):
         print(f"{self.nombre} está inscripto en: ")
         for curso in sorted(self.mis_cursos, key=lambda x: x.codigo):
             print(f"{curso.codigo}. {curso.nombre}")
+        
+        seleccion = int(input("Seleccione un curso: "))
+        curso_seleccionado = self.mis_cursos[seleccion-1]
+
+        os.system("cls")
+        print(f"Datos del curso: ")
+        print(f"Nombre: {curso_seleccionado.nombre}\nCódigo: {curso_seleccionado.codigo}\nContraseña: {curso_seleccionado.contrasenia_matriculacion}")
+
+        # Mostrar archivos del curso seleccionado
+        if len(curso_seleccionado.archivos) > 0:
+            print("\nArchivos del curso:")
+            for archivo in curso_seleccionado.archivos:
+                print(f"Nombre: {archivo.nombre}, Fecha: {archivo.fecha}, Formato: {archivo.formato}")
+        else:
+            print("\nEl curso no tiene archivos.")
+
         input("Presione cualquier tecla para continuar...")
+
+
 
     def validar_credenciales(self):
             email=input("Ingrese su mail: ")
@@ -223,6 +254,7 @@ class Curso:
         self.nombre = nombre
         self.contrasenia_matriculacion = contrasenia_matriculacion
         self.codigo = codigo
+        self.archivos = []
 
     def __str__(self):
         return f"Curso: {self.nombre}"
@@ -235,8 +267,10 @@ class Curso:
     def nuevo_archivo(self):
         nombre = input("Ingrese nombre del archivo: ")
         fecha = input("Ingrese fecha: ")
-        formato= input("Ingrese formato: ")
-        Archivo(nombre,fecha,formato)
+        formato = input("Ingrese formato: ")
+        nuevo = Archivo(nombre, fecha, formato)
+        return nuevo
+
     
 
 class Archivo:
@@ -247,7 +281,6 @@ class Archivo:
 
     def __str__(self):
         return f"Archivo: {self.nombre}, fecha: {self.fecha}, formato: {self.formato}"
-
 
 class Carrera:
     def __init__(self,nombre,cant_anios):
@@ -276,5 +309,4 @@ lista_profesores.append(profesor)
 profesor=Profesor("Pedro","Lopez","pedrito@gmail.com","pedrito123","Ingeniero",1980)
 lista_profesores.append(profesor)
 
-carrera = Carrera("Tecnicatura Unviersitaria En P   rogramación",2)
-
+carrera = Carrera("Tecnicatura Unviersitaria En Programación",2)

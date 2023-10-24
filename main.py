@@ -54,9 +54,10 @@ while op !=4:
 
             elif op==3: 
                 os.system("cls")
-                print("Aquí esta la lista de cursos disponibles del campus virtual:\n")
-                for i in range(len(clase.lista_cursos)):
-                    print(clase.lista_cursos[i])
+                print("Aquí está la lista de cursos disponibles del campus virtual:\n")
+                lista_ordenada = sorted(clase.lista_cursos, key=lambda curso: curso.nombre)
+                for curso in lista_ordenada:
+                    print(f"Materia: {curso.nombre}           Carrera: {clase.carrera.nombre}")
                 input("\nPresione cualquier tecla para volver al menú...")
 
             elif op==4:
