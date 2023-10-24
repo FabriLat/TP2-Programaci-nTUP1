@@ -1,6 +1,7 @@
 from abc import ABC,abstractmethod
 import os
 import random
+from datetime import datetime
 
 class Usuario(ABC):
     @abstractmethod
@@ -30,7 +31,6 @@ class Profesor(Usuario):
 
     def dictar_curso(self):
         os.system("cls")
-
         nombre_curso = input("Ingrese el nombre del curso a dictar: ")
         while len(nombre_curso) == 0:
             if len(nombre_curso) == 0:
@@ -38,13 +38,15 @@ class Profesor(Usuario):
         clave_curso = input("Ingrese la clave de matriculación: ")
         while len(clave_curso) < 2 or len(clave_curso) > 6:
             if len(clave_curso) < 2 or len(clave_curso) > 6:
-                clave_curso = input("Error, ingrese un valor alfanumerico entre 3-5 caracteres")
+                clave_curso = input("Error, ingrese un valor alfanumerico(opcional) entre 3-5 caracteres: ")
 
         codigo = len(lista_cursos) + 1
         nuevo_curso = Curso(nombre_curso.capitalize(),clave_curso,codigo)
+        #Se ejecuta cuando no hay ningun curso en la lista
         if len(self.mis_cursos) == 0:
             lista_cursos.append(nuevo_curso)
             self.mis_cursos.append(nuevo_curso)
+            os.system("cls")
             print(f"Usted ha empezado a dictar el curso {nuevo_curso.nombre}")
             print(f"Código: {codigo}\nContraseña: {clave_curso}")
             input("Pulse cualquier tecla para continuar...")
@@ -55,7 +57,8 @@ class Profesor(Usuario):
                 print("Usted ya está a cargo de este curso")
                 input("Pulse cualquier tecla para volver al menú...")  
                 return ""
-
+            
+        #Se ejecuta si hay almenos 1 curso en la lista
         lista_cursos.append(nuevo_curso)
         self.mis_cursos.append(nuevo_curso)
         os.system("cls")
@@ -110,14 +113,19 @@ class Profesor(Usuario):
                 i= i+1
         else:
             print("Usted no tiene cursos a cargo suyo.")
+            input("Pulse cualquier tecla para volver al menu...")
 
         if len(self.mis_cursos) > 0:
-            seleccion = int(input("Seleccione un curso de los mencionados anteriormente: "))
+            seleccion = input("Seleccione una opcion de las anteriores: ")
+
+            while not seleccion.isdigit() or 0 >= int(seleccion) or int(seleccion) > len(self.mis_cursos):
+                seleccion = input("Error, seleccione una opcion de las anteriores: ")
+            seleccion = int(seleccion)
             self.mis_cursos = sorted(self.mis_cursos, key=lambda x: x.nombre)
             os.system("cls")
             print("Datos del curso: ")
             print(f"Nombre: {self.mis_cursos[seleccion-1].nombre}\nCódigo: {self.mis_cursos[seleccion-1].codigo}\nContraseña: {self.mis_cursos[seleccion-1].contrasenia_matriculacion}\nCantidad de archivos: {len(self.mis_cursos[seleccion-1].archivos)}")
-            nuevo_archivo = input("\nDesea agregar un nuevo archivo\n1-Si\n2-No\n")
+            nuevo_archivo = input("\n¿Desea agregar un nuevo archivo?\n1-Si\n2-No\n")
             curso_seleccionado = self.mis_cursos[seleccion-1]
             if nuevo_archivo == "1":
                 nuevo = curso_seleccionado.nuevo_archivo()
@@ -195,7 +203,10 @@ class Estudiante(Usuario):
                     break
                 else:
                     print("Valor ingresado inválido, intente nuevamente: ")
-        eliminado = self.mis_cursos.pop(seleccion-1)   
+            else:
+                print("Valor ingresado inválido, intente nuevamente: ")
+        eliminado = self.mis_cursos.pop(seleccion-1)
+        os.system("cls")
         print(f"Usted se ha desmatriculado de {eliminado}")
         input("Presione cualquier tecla para volver al menú...")
         
@@ -209,18 +220,18 @@ class Estudiante(Usuario):
         for curso in sorted(self.mis_cursos, key=lambda x: x.codigo):
             print(f"{curso.codigo}. {curso.nombre}")
         
-        seleccion = int(input("Seleccione un curso: "))
+        seleccion = (input("Seleccione un curso: "))
+        while not seleccion.isdigit() or 0 >= int(seleccion) or int(seleccion) > len(self.mis_cursos):
+            seleccion = input("Error, seleccione una opcion de las anteriores: ")
+        seleccion = int(seleccion)
         curso_seleccionado = self.mis_cursos[seleccion-1]
 
         os.system("cls")
-        print(f"Datos del curso: ")
-        print(f"Nombre: {curso_seleccionado.nombre}\nCódigo: {curso_seleccionado.codigo}\nContraseña: {curso_seleccionado.contrasenia_matriculacion}")
-
         # Mostrar archivos del curso seleccionado
         if len(curso_seleccionado.archivos) > 0:
             print("\nArchivos del curso:")
             for archivo in curso_seleccionado.archivos:
-                print(f"Nombre: {archivo.nombre}, Fecha: {archivo.fecha}, Formato: {archivo.formato}")
+                print(f"Nombre: {archivo.nombre}.{archivo.formato} | Fecha: {archivo.fecha}\n")
         else:
             print("\nEl curso no tiene archivos.")
 
@@ -265,9 +276,17 @@ class Curso:
         return letras+numeros
     
     def nuevo_archivo(self):
+        os.system("cls")
         nombre = input("Ingrese nombre del archivo: ")
-        fecha = input("Ingrese fecha: ")
+        while len(nombre) <= 0:
+            if len(nombre) <=0:
+                nombre = input("Ingrese un nombre de archivo válido: ")
+
+        fecha = datetime.now().date()
         formato = input("Ingrese formato: ")
+        while len(formato) <= 0:
+            if len(formato) <=0:
+                formato = input("Ingrese un nombre de archivo válido: ")
         nuevo = Archivo(nombre, fecha, formato)
         return nuevo
 
